@@ -54,13 +54,16 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Row(
                         children: [
                           Container(
+                            margin: EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 15),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black, width: 2),
+                            ),
+                            padding: EdgeInsets.all(10),
                             child: Text(e.price.toString()),
                           ),
                           Column(
-                            children: [
-                              Text(e.title),
-                              Text(e.date.toString())
-                            ],
+                            children: [Text(e.title), Text(e.date.toString())],
                           )
                         ],
                       ),
