@@ -1,6 +1,7 @@
-import 'package:expense_manager/transaction.dart';
+
+import 'package:expense_manager/widget/user_transaction.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -20,18 +21,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key key}) : super(key: key);
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> transaction = [
-    Transaction(id: 't1', title: 'shoes', price: 45.99, date: DateTime.now()),
-    Transaction(id: 't2', title: 'shirts', price: 30.99, date: DateTime.now())
-  ];
+class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -45,72 +35,12 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           Container(
             child: Card(
+              elevation: 5,
               color: Colors.blue,
               child: Text('Chart'),
             ),
           ),
-          Card(
-            elevation: 5,
-            child: Container(
-              margin: EdgeInsets.all(10),
-              child: Column(
-                children: [
-                  TextField(
-                    decoration: InputDecoration(labelText: 'Title'),
-                  ),
-                  TextField(
-                    decoration: InputDecoration(labelText: 'Price'),
-                  ),
-                  ElevatedButton(
-                    child: Text('Add Transaction'),
-                    onPressed: () {},
-                  )
-                ],
-              ),
-            ),
-          ),
-          Column(
-            children: transaction
-                .map((e) => Card(
-                      child: Row(
-                        children: [
-                          Container(
-                            margin: EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 15),
-                            decoration: BoxDecoration(
-                                border:
-                                    Border.all(color: Colors.black, width: 2),
-                                borderRadius: BorderRadius.circular(10)),
-                            padding: EdgeInsets.all(10),
-                            child: Text(
-                              '৳${e.price}',
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.purple),
-                            ),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                e.title,
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                DateFormat.yMMMd().format(e.date),
-                                style: TextStyle(color: Colors.grey),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ))
-                .toList(),
-          )
+          UserTransaction()
         ],
       ),
     );
