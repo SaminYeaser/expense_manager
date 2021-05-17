@@ -25,7 +25,7 @@ class TransactionList extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10)),
                   padding: EdgeInsets.all(10),
                   child: Text(
-                    '৳${transaction[index].price}',
+                    '৳${transaction[index].price.toStringAsFixed(2)}',
                     style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
