@@ -1,15 +1,17 @@
+import 'package:expense_manager/widget/user_transaction.dart';
 import 'package:flutter/material.dart';
 
 
 class NewTransaction extends StatelessWidget {
-  const NewTransaction({Key key}) : super(key: key);
+  final Function addTransaction;
+  final titleController = TextEditingController();
+  final priceController = TextEditingController();
 
-
+  NewTransaction(this.addTransaction);
 
   @override
   Widget build(BuildContext context) {
-    final titleController = TextEditingController();
-    final priceController = TextEditingController();
+
 
     return Card(
       elevation: 5,
@@ -27,7 +29,9 @@ class NewTransaction extends StatelessWidget {
             ),
             ElevatedButton(
               child: Text('Add Transaction'),
-              onPressed: () {},
+              onPressed: () {
+                addTransaction(titleController.text, double.parse(priceController.text));
+              },
             )
           ],
         ),
