@@ -1,5 +1,6 @@
 import 'package:expense_manager/transaction.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(MyApp());
@@ -39,13 +40,33 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text('Expense Manager'),
       ),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        // crossAxisAlignment: CrossAxisAlignment.stretch,
+        // mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Container(
             child: Card(
               color: Colors.blue,
               child: Text('Chart'),
+            ),
+          ),
+          Card(
+            elevation: 5,
+            child: Container(
+              margin: EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  TextField(
+                    decoration: InputDecoration(labelText: 'Title'),
+                  ),
+                  TextField(
+                    decoration: InputDecoration(labelText: 'Price'),
+                  ),
+                  ElevatedButton(
+                    child: Text('Add Transaction'),
+                    onPressed: () {},
+                  )
+                ],
+              ),
             ),
           ),
           Column(
@@ -57,13 +78,33 @@ class _MyHomePageState extends State<MyHomePage> {
                             margin: EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 15),
                             decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black, width: 2),
-                            ),
+                                border:
+                                    Border.all(color: Colors.black, width: 2),
+                                borderRadius: BorderRadius.circular(10)),
                             padding: EdgeInsets.all(10),
-                            child: Text(e.price.toString()),
+                            child: Text(
+                              '৳${e.price}',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.purple),
+                            ),
                           ),
                           Column(
-                            children: [Text(e.title), Text(e.date.toString())],
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                e.title,
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                DateFormat.yMMMd().format(e.date),
+                                style: TextStyle(color: Colors.grey),
+                              )
+                            ],
                           )
                         ],
                       ),
