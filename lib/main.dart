@@ -29,19 +29,21 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Expense Manager'),
       ),
-      body: Column(
-        // crossAxisAlignment: CrossAxisAlignment.stretch,
-        // mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Container(
-            child: Card(
-              elevation: 5,
-              color: Colors.blue,
-              child: Text('Chart'),
+      body: SingleChildScrollView(
+        child: Column(
+          // crossAxisAlignment: CrossAxisAlignment.stretch,
+          // mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Container(
+              child: Card(
+                elevation: 5,
+                color: Colors.blue,
+                child: Text('Chart'),
+              ),
             ),
-          ),
-          UserTransaction()
-        ],
+            UserTransaction()
+          ],
+        ),
       ),
     );
   }
