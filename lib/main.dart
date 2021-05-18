@@ -1,7 +1,8 @@
-
-import 'package:expense_manager/widget/user_transaction.dart';
+import 'package:expense_manager/widget/newTransection.dart';
+import 'package:expense_manager/widget/transaction_list.dart';
 import 'package:flutter/material.dart';
 
+import 'model/transaction.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,7 +10,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
-  @override
+
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
@@ -22,7 +23,36 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  final List<Transaction> _userTransaction = [
+    Transaction(title: 'shoe', id: 'd1', price: 69.99, date: DateTime.now()),
+    Transaction(title: 'shirt', id: 'd2', price: 23.99, date: DateTime.now())
+  ];
+
+  void _addNewTransaction(String txTitle, double txPrice) {
+    final newTransaction = Transaction(
+        title: txTitle,
+        price: txPrice,
+        date: DateTime.now(),
+        id: DateTime.now().toString());
+
+    setState(() {
+      _userTransaction.add(newTransaction);
+    });
+  }
+
+  void _startNewTransaction(BuildContext ctx) {
+    showModalBottomSheet(
+        context: ctx,
+        builder: (bCtx) {
+          return NewTransaction(_addNewTransaction);
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +60,9 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Expense Manager'),
         actions: [
-          IconButton(icon: Icon(Icons.add), onPressed: (){})
+          IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () => _startNewTransaction(context))
         ],
       ),
       body: SingleChildScrollView(
@@ -45,15 +77,16 @@ class MyHomePage extends StatelessWidget {
                 child: Text('Chart'),
               ),
             ),
-            UserTransaction()
+            TransactionList(_userTransaction)
           ],
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: (){},
+        onPressed: () => _startNewTransaction(context),
       ),
     );
   }
 }
+
