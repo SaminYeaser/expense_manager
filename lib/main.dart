@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -28,6 +29,9 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Expense Manager'),
+        actions: [
+          IconButton(icon: Icon(Icons.add), onPressed: (){})
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -44,6 +48,11 @@ class MyHomePage extends StatelessWidget {
             UserTransaction()
           ],
         ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: (){},
       ),
     );
   }
