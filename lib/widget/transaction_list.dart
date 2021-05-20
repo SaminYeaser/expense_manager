@@ -19,7 +19,7 @@ class TransactionList extends StatelessWidget {
                     padding: EdgeInsets.only(top: 20),
                       child: Text(
                     'No Transaction Still now',
-                    style: TextStyle(),
+                    style: Theme.of(context).textTheme.headline6,
                   )),
                   Container(
                     height: 200,
@@ -59,10 +59,7 @@ class TransactionList extends StatelessWidget {
                         children: [
                           Text(
                             transaction[index].title,
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
+                            style: Theme.of(context).textTheme.headline6,
                           ),
                           Text(
                             DateFormat.yMMMd().format(transaction[index].date),
