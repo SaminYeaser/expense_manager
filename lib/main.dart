@@ -1,3 +1,4 @@
+import 'package:expense_manager/widget/chart.dart';
 import 'package:expense_manager/widget/newTransection.dart';
 import 'package:expense_manager/widget/transaction_list.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,10 @@ class MyApp extends StatelessWidget {
               textTheme: ThemeData.light().textTheme.copyWith(
                   headline6: TextStyle(fontFamily: 'OpenSans', fontSize: 20))),
           textTheme: ThemeData.light().textTheme.copyWith(
-              headline6: TextStyle(fontFamily: 'OpenSans', fontSize: 15, fontWeight: FontWeight.bold))),
+              headline6: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold))),
       home: MyHomePage(),
     );
   }
@@ -38,6 +42,14 @@ class _MyHomePageState extends State<MyHomePage> {
     Transaction(title: 'shoe', id: 'd1', price: 69.99, date: DateTime.now()),
     Transaction(title: 'shirt', id: 'd2', price: 23.99, date: DateTime.now())
   ];
+
+  List<Transaction> get _recentTransaction {
+    return _userTransaction.where((element){
+      return element.date.isAfter(DateTime.now().subtract(
+        Duration(days: 7)
+      ));
+    }).toList();
+  }
 
   void _addNewTransaction(String txTitle, double txPrice) {
     final newTransaction = Transaction(
@@ -74,16 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           // crossAxisAlignment: CrossAxisAlignment.stretch,
           // mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Container(
-              child: Card(
-                elevation: 5,
-                color: Colors.blue,
-                child: Text('Chart'),
-              ),
-            ),
-            TransactionList(_userTransaction)
-          ],
+          children: [Chart(_recentTransaction), TransactionList(_userTransaction)],
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
