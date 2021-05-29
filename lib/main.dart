@@ -44,18 +44,16 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
 
   List<Transaction> get _recentTransaction {
-    return _userTransaction.where((element){
-      return element.date.isAfter(DateTime.now().subtract(
-        Duration(days: 7)
-      ));
+    return _userTransaction.where((element) {
+      return element.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
     }).toList();
   }
 
-  void _addNewTransaction(String txTitle, double txPrice) {
+  void _addNewTransaction(String txTitle, double txPrice, DateTime chosenDate) {
     final newTransaction = Transaction(
         title: txTitle,
         price: txPrice,
-        date: DateTime.now(),
+        date: chosenDate,
         id: DateTime.now().toString());
 
     setState(() {
@@ -71,6 +69,14 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 
+  void _deleteTransaction(String id) {
+    setState(() {
+      _userTransaction.removeWhere((tx) {
+        return tx.id == id;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,15 +84,18 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text('Expense Manager'),
         actions: [
           IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () => _startNewTransaction(context))
+              icon: Icon(Icons.add), onPressed: () => _startNewTransaction)
         ],
       ),
       body: SingleChildScrollView(
         child: Column(
           // crossAxisAlignment: CrossAxisAlignment.stretch,
           // mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [Chart(_recentTransaction), TransactionList(_userTransaction)],
+          children: [
+            Chart(_recentTransaction),
+            TransactionList(_userTransaction, _deleteTransaction),
+
+          ],
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

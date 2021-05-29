@@ -13,4 +13,19 @@ class Transaction {
     @required this.price,
     @required this.date
   });
+
+  Transaction.fromMap(Map<String, dynamic> res)
+      : id = res["id"],
+        title = res["title"],
+        price = res["price"],
+        date = res["date"];
+
+  Map<String, Object> toMap() {
+    return {
+      'id': id,
+      'title': title,
+      'price': price,
+      'date': date,
+    };
+  }
 }
